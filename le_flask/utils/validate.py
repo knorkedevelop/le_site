@@ -1,4 +1,4 @@
-from LeFlask.utils.messages import Error
+from le_flask.utils.messages import Error
 import os
 
 

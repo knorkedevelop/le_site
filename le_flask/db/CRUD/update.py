@@ -1,4 +1,4 @@
-from LeFlask.db.models import *
+from le_flask.db.models import *
 
 
 def update_card(card, name, image, url):

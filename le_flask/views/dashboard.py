@@ -1,8 +1,8 @@
 from flask import Blueprint, request, session
-from LeFlask.db.models import Card
-from LeFlask.db.CRUD import read, update, create, delete
-from LeFlask.utils import security, validate
-from LeFlask.utils.messages import Error, Success
+from le_flask.db.models import Card
+from le_flask.db.CRUD import read, update, create, delete
+from le_flask.utils import security, validate
+from le_flask.utils.messages import Error, Success
 
 bp = Blueprint("dashboard", __name__, url_prefix="/dashboard")
 

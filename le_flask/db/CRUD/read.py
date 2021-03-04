@@ -1,4 +1,4 @@
-from LeFlask.db.models import *
+from le_flask.db.models import *
 
 
 def get_card(id):

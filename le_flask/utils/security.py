@@ -1,7 +1,7 @@
 from functools import wraps
 from flask import request, Response, session
 from werkzeug.security import generate_password_hash, check_password_hash
-from LeFlask.db.CRUD import read
+from le_flask.db.CRUD import read
 
 
 def check_auth(username, password):

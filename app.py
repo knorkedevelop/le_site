@@ -1,17 +1,17 @@
 from flask import Flask, render_template, request, send_from_directory
 from flask_cors import CORS
 from flask_migrate import Migrate
-from LeFlask.db.CRUD import create
-from LeFlask.db.models import db
-from LeFlask.views import dashboard, profile, admin
-from LeFlask.utils.security import *
+from le_flask.db.CRUD import create
+from le_flask.db.models import db
+from le_flask.views import dashboard, profile, admin
+from le_flask.utils.security import *
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
 def create_app(test_config=None):
     server = Flask(__name__)
     CORS(server)
-    server.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://tim:secret@db:5432/le_db"
+    server.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://tim:secret@le_db:5432/le_db"
     server.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(server)
