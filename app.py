@@ -11,7 +11,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 def create_app(test_config=None):
     server = Flask(__name__)
     CORS(server)
-    server.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://tim:secret@le_db/le_db"
+    server.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://tim:secret@le_postgres:5432/le_db"
     server.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(server)

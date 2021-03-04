@@ -1,18 +1,20 @@
 from functools import wraps
 from flask import request, Response, session
 from werkzeug.security import generate_password_hash, check_password_hash
-from le_flask.db.CRUD import read
+from le_flask.db.CRUD import read, create
 
 
 def check_auth(username, password):
-    """This function is called to check if a username /
-    password combination is valid.
-    """
     all_users = read.get_all_users()
-    for current_user in all_users:
-        if username == current_user.name and check_password_hash(current_user.password, password):
-            session["user_id"] = current_user.id
-            return True
+    print(all_users)
+    if not all_users:
+        create.user(username, generate_password_hash(password))
+        return True
+    else:
+        for current_user in all_users:
+            if username == current_user.name and check_password_hash(current_user.password, password):
+                session["user_id"] = current_user.id
+                return True
     return False
 
 
