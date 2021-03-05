@@ -72,8 +72,8 @@ services:
       TZ: "Europe/Berlin"
       WEBPASSWORD: "LePihole20"
     volumes:
-      - v_pihole:/etc/pihole/"
-      - v_dnsmaq:/etc/dnsmasq.d/"
+      - v_pihole:/etc/pihole/
+      - v_dnsmaq:/etc/dnsmasq.d/
 
     cap_add:
       - NET_ADMIN
