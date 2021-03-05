@@ -1,0 +1,96 @@
+# docker-compose up
+version: "3"
+
+services:
+  le_portainer:
+    image: portainer/portainer-ce
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data portainer/portainer-ce
+
+  # printer:
+  #   image: ydkn/cups
+  #   restart: always
+  #   ports:
+  #    - "631:631"
+  #backend
+  le_flask:
+    image: lelarge/le_site:latest
+    ports:
+      - "5000:5000"
+    depends_on:
+      - "le_postgres"
+
+  #postgres datenbank
+  le_postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: le_db
+      POSTGRES_USER: tim
+      POSTGRES_PASSWORD: secret
+      POSTGRES_HOST: db
+    ports:
+      - "5432:5432"
+  #meine cloud
+  le_drive:
+    image: nextcloud
+    restart: always
+    ports:
+      - "9100:9100"
+    volumes:
+      - nextcloud:/var/www/html
+    links:
+      - le_postgres
+    environment:
+      POSTGRES_DB: le_db
+      POSTGRES_USER: tim
+      POSTGRES_PASSWORD: secret
+      POSTGRES_HOST: db
+  # #db konfig App
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 9050:8080
+
+  le_pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+    environment:
+      TZ: "Europe/London"
+      WEBPASSWORD: "LePihole20"
+    volumes:
+      - "./etc-pihole/:/etc/pihole/"
+      - "./etc-dnsmasq.d/:/etc/dnsmasq.d/"
+
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+
+  le_traefik:
+    image: "traefik"
+    container_name: "traefik"
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+volumes:
+  portainer_data:
+  nextcloud:
