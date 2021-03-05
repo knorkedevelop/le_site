@@ -8,8 +8,8 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - v_portainer_data:/data
+      - v_portainer:/var/run/docker.sock
+      - v_portainer:/data
 
   # printer:
   #   image: ydkn/cups
@@ -69,7 +69,6 @@ services:
       - "80:80/tcp"
       - "443:443/tcp"
     environment:
-      DNS1: "192.168.178.1"
       TZ: "Europe/Berlin"
       WEBPASSWORD: "LePihole20"
     volumes:
@@ -94,7 +93,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
 volumes:
-  v_portainer_data:
+  v_portainer:
   v_nextcloud:
   v_postgres:
   v_pihole:
