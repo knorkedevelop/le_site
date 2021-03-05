@@ -8,7 +8,7 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - v_portainer:/var/run/docker.sock
+      - v_portainer_sock:/var/run/docker.sock
       - v_portainer:/data
 
   # printer:
@@ -98,3 +98,4 @@ volumes:
   v_postgres:
   v_pihole:
   v_dnsmaq:
+  v_portainer_sock:
