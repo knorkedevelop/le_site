@@ -9,7 +9,7 @@ services:
       - "9000:9000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data portainer/portainer-ce
+      - v_portainer_data:/data
 
   # printer:
   #   image: ydkn/cups
@@ -28,6 +28,8 @@ services:
   le_postgres:
     image: postgres
     restart: always
+    volumes:
+      - v_postgres:/Var/lib/postgresql/data
     environment:
       POSTGRES_DB: le_db
       POSTGRES_USER: tim
@@ -42,7 +44,7 @@ services:
     ports:
       - "9100:9100"
     volumes:
-      - nextcloud:/var/www/html
+      - v_nextcloud:/var/www/html
     links:
       - le_postgres
     environment:
@@ -92,5 +94,6 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
 volumes:
-  portainer_data:
-  nextcloud:
+  v_portainer_data:
+  v_nextcloud:
+  v_postgres:
