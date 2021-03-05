@@ -29,7 +29,7 @@ services:
     image: postgres
     restart: always
     volumes:
-      - v_postgres:/Var/lib/postgresql/data
+      - v_postgres:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: le_db
       POSTGRES_USER: tim
