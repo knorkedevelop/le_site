@@ -28,13 +28,13 @@ services:
   le_postgres:
     image: postgres
     restart: always
-    volumes:
-      - v_postgres:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: le_db
       POSTGRES_USER: tim
       POSTGRES_PASSWORD: secret
       POSTGRES_HOST: db
+    volumes:
+      - v_postgres:/var/lib/postgresql/data
     ports:
       - "5432:5432"
   #meine cloud
@@ -53,7 +53,7 @@ services:
       POSTGRES_PASSWORD: secret
       POSTGRES_HOST: db
   # #db konfig App
-  adminer:
+  le_adminer:
     image: adminer
     restart: always
     ports:
@@ -73,8 +73,8 @@ services:
       TZ: "Europe/Berlin"
       WEBPASSWORD: "LePihole20"
     volumes:
-      - "./etc-pihole/:/etc/pihole/"
-      - "./etc-dnsmasq.d/:/etc/dnsmasq.d/"
+      - v_pihole:/etc/pihole/
+      - v_pihole:/etc/dnsmasq.d/
 
     cap_add:
       - NET_ADMIN
@@ -97,3 +97,4 @@ volumes:
   v_portainer_data:
   v_nextcloud:
   v_postgres:
+  v_pihole:
